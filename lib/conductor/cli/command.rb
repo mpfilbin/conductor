@@ -34,6 +34,7 @@ module Conductor
   end
 
   class HelpCommand < Command
+
     # @param [Conductor::Options] options
     def initialize(options)
       document 'provides additional information about a particular command'
@@ -47,6 +48,7 @@ module Conductor
 
   class OrchestrateCommand < Command
 
+    # @param [Conductor::Options] options
     def initialize(options)
       document 'Initiates the entire orchestration routine'
       super options
@@ -59,6 +61,7 @@ module Conductor
 
   class KillCommand < Command
 
+    # @param [Conductor::Options] options
     def initialize(options)
       document 'kills a given process orchestrated through Orchestrator'
       super options
@@ -70,6 +73,8 @@ module Conductor
   end
 
   class PSCommand < Command
+
+    # @param [Conductor::Options] options
     def initialize(options)
       document 'lists out the currently living processes orchestrated by Orchestrator'
       super options
@@ -81,12 +86,14 @@ module Conductor
   end
 
   class KillAllCommand < Command
+
+    # @param [Conductor::Options] options
     def initialize(options)
       document 'Kills all processes managed by Orchestrator'
     end
 
     def execute
-      raise 'Kill all not implemented yet'
+      raise NotImplementedError.new('Kill all not implemented yet')
     end
   end
 

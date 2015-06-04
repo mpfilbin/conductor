@@ -1,5 +1,5 @@
-require 'rspec'
-require 'rspec/mocks'
+require_relative 'spec_helper'
+
 require_relative '../lib/conductor/cli/options'
 require_relative '../lib/conductor/cli/command'
 
@@ -11,7 +11,11 @@ describe Conductor::Options do
     let(:subject) { Conductor::Options.new }
 
     before(:each) do
-      ENV['HOME']='/Users/jack'
+      ENV.expects(:[]).at_least_once.with('HOME').returns('/Users/jack')
+    end
+
+    after :each do
+      ENV.unstub(:[])
     end
 
     it "defaults the config file path to the current user's home directory" do
