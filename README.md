@@ -1,9 +1,9 @@
 # Conductor - An Application Orchestration Tool for Rally (NOTOK)
 
-Conductor helps to launch multiple applications necessary to run the NOTOK application suite. Conductor reads a .orchestration file location in your user's home directory (~).
+Conductor helps to launch and manage multiple applications from the command line simply and easily. Conductor reads a .orchestration file location in your user's home directory (~).
 
 
-## Orchistration File Format
+## Orchestration File Format
 
 
 ```yaml

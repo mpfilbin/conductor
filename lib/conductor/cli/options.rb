@@ -18,11 +18,11 @@ module Conductor
         end
 
         opts.on('-c CONFIG', '--config CONFIG', 'Path to the Conductor configuration file') do |path|
-          options.send(:config_path=, path)
+          options.send(:config_path=, path.strip())
         end
 
         opts.on('-p PIDS', '--pids PIDS', 'Path to the PIDS file to track processes with') do |path|
-          options.send(:pid_file=, path)
+          options.send(:pid_file=, path.strip())
         end
       end
 

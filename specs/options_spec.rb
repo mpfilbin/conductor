@@ -4,19 +4,18 @@ require_relative '../lib/conductor/cli/options'
 require_relative '../lib/conductor/cli/command'
 
 describe Conductor::Options do
+  before(:each) do
+    ENV.expects(:[]).at_least_once.with('HOME').returns('/Users/jack')
+  end
 
+  after :each do
+    ENV.unstub(:[])
+  end
 
   describe 'instantiation' do
 
     let(:subject) { Conductor::Options.new }
 
-    before(:each) do
-      ENV.expects(:[]).at_least_once.with('HOME').returns('/Users/jack')
-    end
-
-    after :each do
-      ENV.unstub(:[])
-    end
 
     it "defaults the config file path to the current user's home directory" do
       expect(subject.config_path).to eq('/Users/jack/.orchestration')
@@ -49,12 +48,14 @@ describe Conductor::Options do
     end
 
     describe 'setting the configuration path' do
-      describe 'the -p option' do
+      describe 'the -c option' do
         describe 'when passed with a value' do
-          let(:subject) { Conductor::Options.parse(['-p ./foo/bar']) }
+          let(:subject) { Conductor::Options.parse(['-c ./foo/bar']) }
+
           it 'sets the configuration file path to that value' do
             expect(subject.config_path).to eql('./foo/bar')
           end
+
         end
       end
     end
