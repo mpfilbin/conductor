@@ -55,12 +55,37 @@ describe Conductor::Options do
           it 'sets the configuration file path to that value' do
             expect(subject.config_path).to eql('./foo/bar')
           end
+        end
+
+        describe 'when not passed a value' do
+
+          it 'raises an exception' do
+            expect(lambda { Conductor::Options.parse(['-c']) }).to raise_exception
+          end
 
         end
       end
+
+      describe 'this --config option' do
+        describe 'when passed with a value' do
+          let(:subject) { Conductor::Options.parse(['--config ./foo/bar']) }
+
+          it 'sets the configuration file path to that value' do
+            expect(subject.config_path).to eql('./foo/bar')
+          end
+        end
+
+        describe 'when not passed a value' do
+
+          it 'raises an exception' do
+            expect(lambda { Conductor::Options.parse(['--config']) }).to raise_exception
+          end
+
+        end
+      end
+
     end
 
   end
-
 
 end
