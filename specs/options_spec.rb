@@ -66,9 +66,9 @@ describe Conductor::Options do
         end
       end
 
-      describe 'this --config option' do
+      describe 'this --config= option' do
         describe 'when passed with a value' do
-          let(:subject) { Conductor::Options.parse(['--config ./foo/bar']) }
+          let(:subject) { Conductor::Options.parse(['--config=./foo/bar']) }
 
           it 'sets the configuration file path to that value' do
             expect(subject.config_path).to eql('./foo/bar')
@@ -83,7 +83,40 @@ describe Conductor::Options do
 
         end
       end
+    end
 
+    describe 'setting the PIDs file path' do
+      describe 'the -p option' do
+        describe 'when passed a value' do
+          let(:subject) { Conductor::Options.parse(['-p ./foo/bar']) }
+
+          it 'sets the pids file path to the value' do
+            expect(subject.pid_file).to eql('./foo/bar')
+          end
+        end
+
+        describe 'when not passed a value' do
+          it 'raises an exception' do
+              expect(lambda { Conductor::Options.parse(['-p']) }).to raise_exception
+          end
+        end
+      end
+
+      describe 'the --pids= option' do
+        describe 'when passed a value' do
+          let(:subject) { Conductor::Options.parse(['--pids=./foo/bar']) }
+          it 'sets the PIDs file path' do
+            expect(subject.pid_file).to eql('./foo/bar')
+          end
+        end
+
+        describe 'when not passed a value' do
+          it 'raises and exception' do
+           expect(lambda {Conductor::Options.parse(['--pids='])}).to raise_exception
+          end
+        end
+
+      end
     end
 
   end

@@ -17,11 +17,11 @@ module Conductor
           options.send(:verbose=, true)
         end
 
-        opts.on('-c CONFIG', '--config CONFIG', String, 'Path to the Conductor configuration file') do |path|
+        opts.on('-c CONFIG', '--config=CONFIG', String, 'Path to the Conductor configuration file') do |path|
           options.send(:config_path=, path.strip())
         end
 
-        opts.on('-p PIDS', '--pids PIDS', String, 'Path to the PIDS file to track processes with') do |path|
+        opts.on('-p PIDS', '--pids=PIDS', String, 'Path to the PIDS file to track processes with') do |path|
           options.send(:pid_file=, path.strip())
         end
       end
@@ -34,7 +34,7 @@ module Conductor
     def initialize
       @config_path = "#{ENV['HOME']}/.orchestration"
       @pid_file = "#{ENV['HOME']}/.current_pids"
-      @verbose = false;
+      @verbose = false
     end
 
     private
