@@ -1,14 +1,16 @@
-require_relative '../lib/conductor/cli/stack_file_parser'
-require_relative '../lib/conductor/cli/application_interface'
-require_relative '../lib/conductor/cli/options'
+require_relative '../../lib/conductor/cli/parsers/stack_file_parser'
+require_relative '../../lib/conductor/cli/application_interface'
+require_relative '../../lib/conductor/cli/parsers/options_parser'
 
-describe Conductor::CLI::StackFileParser do
+include Conductor::CLI::Parsers
+
+describe StackFileParser do
 
   describe 'loading a stack file' do
     describe 'when the file does not exist' do
       before :each do
-        options = Conductor::Options.parse(['--config=Users/foo'])
-        @subject = Conductor::CLI::StackFileParser.new('does_not_exist', options)
+        options = OptionsParser.parse(['--config=Users/foo'])
+        @subject = StackFileParser.new('does_not_exist', options)
       end
 
       it 'raises and exception' do
@@ -23,8 +25,8 @@ describe Conductor::CLI::StackFileParser do
                                                            'start' => 'pwd',
                                                            'params' => ['--verbose']
                                                        ])
-        options = Conductor::Options.parse(['--config=/Users/foo'])
-        @subject = Conductor::CLI::StackFileParser.new('test_stack', options)
+        options = OptionsParser.parse(['--config=/Users/foo'])
+        @subject = StackFileParser.new('test_stack', options)
       end
 
       it 'does not raise an exception' do

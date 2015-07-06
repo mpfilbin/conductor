@@ -1,7 +1,7 @@
 require_relative '../command'
 
 class KillAllCommand < Command
-  # @param [Conductor::Options] options
+  # @param [Conductor::OptionsParser] options
   def initialize(options)
     document 'Kills all processes managed by Orchestrator'
   end

@@ -2,7 +2,7 @@ require_relative '../command'
 
 class PSCommand < Command
 
-  # @param [Conductor::Options] options
+  # @param [Conductor::OptionsParser] options
   def initialize(options)
     document 'lists out the currently living processes orchestrated by Orchestrator'
     super options

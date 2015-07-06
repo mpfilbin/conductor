@@ -7,7 +7,7 @@ module Conductor
     module Commands
       class HelpCommand < Command
 
-        # @param [Conductor::Options] options
+        # @param [Conductor::OptionsParser] options
         def initialize(options)
           document 'provides additional information about a particular command'
           super options

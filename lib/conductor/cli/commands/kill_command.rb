@@ -1,7 +1,7 @@
 require_relative '../command'
 
 class KillCommand < Command
-  # @param [Conductor::Options] options
+  # @param [Conductor::OptionsParser] options
   def initialize(options)
     document 'kills a given process orchestrated through Orchestrator'
     super options

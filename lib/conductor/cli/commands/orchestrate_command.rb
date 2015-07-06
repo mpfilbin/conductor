@@ -1,7 +1,7 @@
 require_relative '../command'
 
 class OrchestrateCommand < Command
-  # @param [Conductor::Options] options
+  # @param [Conductor::OptionsParser] options
   def initialize(options)
     document 'Initiates the entire orchestration routine'
     super options
