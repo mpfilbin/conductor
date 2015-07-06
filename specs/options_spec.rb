@@ -1,21 +1,16 @@
 require_relative 'spec_helper'
 
+require_relative '../lib/conductor/environment'
 require_relative '../lib/conductor/cli/options'
 require_relative '../lib/conductor/cli/command'
 
 describe Conductor::Options do
   before(:each) do
-    ENV.expects(:[]).at_least_once.with('HOME').returns('/Users/jack')
-  end
-
-  after :each do
-    ENV.unstub(:[])
+    ENV['HOME'] = '/Users/jack'
   end
 
   describe 'instantiation' do
-
     let(:subject) { Conductor::Options.new }
-
 
     it "defaults the config file path to the current user's home directory" do
       expect(subject.config_path).to eq('/Users/jack/.orchestration')
@@ -24,8 +19,6 @@ describe Conductor::Options do
     it "defaults the pid file to the current user's home directory" do
       expect(subject.pid_file).to eq('/Users/jack/.current_pids')
     end
-
-
   end
 
   describe 'parsing' do
@@ -58,7 +51,6 @@ describe Conductor::Options do
         end
 
         describe 'when not passed a value' do
-
           it 'raises an exception' do
             expect(lambda { Conductor::Options.parse(['-c']) }).to raise_exception
           end
@@ -76,7 +68,6 @@ describe Conductor::Options do
         end
 
         describe 'when not passed a value' do
-
           it 'raises an exception' do
             expect(lambda { Conductor::Options.parse(['--config']) }).to raise_exception
           end
@@ -97,7 +88,7 @@ describe Conductor::Options do
 
         describe 'when not passed a value' do
           it 'raises an exception' do
-              expect(lambda { Conductor::Options.parse(['-p']) }).to raise_exception
+            expect(lambda { Conductor::Options.parse(['-p']) }).to raise_exception
           end
         end
       end
@@ -105,6 +96,7 @@ describe Conductor::Options do
       describe 'the --pids= option' do
         describe 'when passed a value' do
           let(:subject) { Conductor::Options.parse(['--pids=./foo/bar']) }
+
           it 'sets the PIDs file path' do
             expect(subject.pid_file).to eql('./foo/bar')
           end
@@ -112,13 +104,10 @@ describe Conductor::Options do
 
         describe 'when not passed a value' do
           it 'raises and exception' do
-           expect(lambda {Conductor::Options.parse(['--pids='])}).to raise_exception
+            expect(lambda { Conductor::Options.parse(['--pids=']) }).to raise_exception
           end
         end
-
       end
     end
-
   end
-
 end

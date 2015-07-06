@@ -1,4 +1,5 @@
 require 'optparse'
+require_relative '../environment'
 
 module Conductor
   class Options
@@ -32,8 +33,9 @@ module Conductor
     end
 
     def initialize
-      @config_path = "#{ENV['HOME']}/.orchestration"
-      @pid_file = "#{ENV['HOME']}/.current_pids"
+      user_home = Conductor::Environment.fetch('HOME')
+      @config_path = "#{user_home}/.orchestration"
+      @pid_file = "#{user_home}/.current_pids"
       @verbose = false
     end
 

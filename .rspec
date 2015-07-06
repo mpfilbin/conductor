@@ -1,0 +1,5 @@
+--warnings
+--color
+--format documentation
+--require <%= "#{Dir.pwd}/specs/spec_helper.rb"%>
+--pattern <%= "#{Dir.pwd}/specs/**/*_spec.rb" %>
