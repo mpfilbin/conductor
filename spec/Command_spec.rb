@@ -9,7 +9,7 @@ describe Conductor::CLI::Command do
 
     describe 'execution' do
       it 'raises an exception' do
-        expect(lambda{subject.execute}).to raise_exception
+        expect(lambda{subject.execute}).to raise_exception RuntimeError
       end
     end
 

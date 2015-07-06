@@ -7,19 +7,23 @@ describe Conductor::CLI::StackFileParser do
   describe 'loading a stack file' do
     describe 'when the file does not exist' do
       before :each do
-        expect(YAML).to receive(:load_file).and_raise('boom')
         options = Conductor::Options.parse(['--config=Users/foo'])
         @subject = Conductor::CLI::StackFileParser.new('does_not_exist', options)
       end
 
       it 'raises and exception' do
-        expect(lambda { @subject.parse }).to raise_exception
+        expect(lambda { @subject.parse }).to raise_error(SystemCallError)
       end
     end
 
     describe 'when the file does exist' do
       before :each do
-        options = Conductor::Options.parse(["--config=#{__dir__}/fixtures"])
+        expect(YAML).to receive(:load_file).and_return([
+                                                           'home' => '/',
+                                                           'start' => 'pwd',
+                                                           'params' => ['--verbose']
+                                                       ])
+        options = Conductor::Options.parse(['--config=/Users/foo'])
         @subject = Conductor::CLI::StackFileParser.new('test_stack', options)
       end
 

@@ -52,7 +52,7 @@ describe Conductor::Options do
 
         describe 'when not passed a value' do
           it 'raises an exception' do
-            expect(lambda { Conductor::Options.parse(['-c']) }).to raise_exception
+            expect(lambda { Conductor::Options.parse(['-c']) }).to raise_exception OptionParser::MissingArgument
           end
 
         end
@@ -69,7 +69,7 @@ describe Conductor::Options do
 
         describe 'when not passed a value' do
           it 'raises an exception' do
-            expect(lambda { Conductor::Options.parse(['--config']) }).to raise_exception
+            expect(lambda { Conductor::Options.parse(['--config']) }).to raise_exception OptionParser::MissingArgument
           end
 
         end
@@ -88,7 +88,7 @@ describe Conductor::Options do
 
         describe 'when not passed a value' do
           it 'raises an exception' do
-            expect(lambda { Conductor::Options.parse(['-p']) }).to raise_exception
+            expect(lambda { Conductor::Options.parse(['-p']) }).to raise_exception OptionParser::MissingArgument
           end
         end
       end
@@ -104,7 +104,7 @@ describe Conductor::Options do
 
         describe 'when not passed a value' do
           it 'raises and exception' do
-            expect(lambda { Conductor::Options.parse(['--pids=']) }).to raise_exception
+            expect(lambda { Conductor::Options.parse(['--pids=']) }).to raise_exception OptionParser::InvalidArgument
           end
         end
       end
