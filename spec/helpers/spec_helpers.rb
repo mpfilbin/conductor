@@ -1,5 +1,5 @@
 module Conductor
-  module Rspec
+  module Tests
     module Helpers
 
       class Stub

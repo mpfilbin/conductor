@@ -1,0 +1,18 @@
+- home: '$WEBAPP_HOME'
+  start: 'gw'
+  params:
+    - 'jettyRun'
+- home: '$BURRO_HOME'
+  start: 'npm'
+  params:
+    - 'start'
+
+- home: '$HOME'
+  start: 'mongod'
+  params:
+    - '--config /usr/local/etc/mongod.conf'
+
+- home: '$DEEPTHOUGHT_HOME'
+  start: 'lein'
+  params:
+    - 'run'

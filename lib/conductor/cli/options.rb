@@ -37,6 +37,7 @@ module Conductor
       @config_path = "#{user_home}/.orchestration"
       @pid_file = "#{user_home}/.current_pids"
       @verbose = false
+      @argv = nil
     end
 
     private

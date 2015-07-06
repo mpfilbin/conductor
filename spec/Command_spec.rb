@@ -27,10 +27,6 @@ describe Conductor::CLI::Command do
           @klass = define_class('PasteCommand')
         end
 
-        after :each do
-          undefine_class @klass
-        end
-
         it 'returns a new instance' do
           expect(Conductor::CLI::Command.build('paste', {option: true})).to be_instance_of @klass
         end
