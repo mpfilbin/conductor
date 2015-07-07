@@ -4,6 +4,8 @@ require_relative '../../environment'
 module Conductor
   module CLI
     module Parsers
+      # This class encapsulates the behavior for parsing commandline arguments and
+      # flags passed to Conductor from the commandline
       class OptionsParser
         attr_accessor :verbose, :config_path, :pid_file, :command, :parser
 
@@ -20,12 +22,12 @@ module Conductor
               options.send(:verbose=, true)
             end
 
-            opts.on('-c CONFIG', '--config=CONFIG', String, 'Path to the Conductor configuration file') do |path|
-              options.send(:config_path=, path.strip())
+            opts.on('-c CONFIG', '--config=CONFIG', String, 'Path to the Conductor configuration file') do |config_file_path|
+              options.send(:config_path=, config_file_path.strip())
             end
 
-            opts.on('-p PIDS', '--pids=PIDS', String, 'Path to the PIDS file to track processes with') do |path|
-              options.send(:pid_file=, path.strip())
+            opts.on('-p PIDS', '--pids=PIDS', String, 'Path to the PIDS file to track processes with') do |pid_file_path|
+              options.send(:pid_file=, pid_file_path.strip())
             end
           end
 

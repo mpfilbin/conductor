@@ -4,6 +4,9 @@ include Conductor::Errors
 
 module Conductor
   module CLI
+
+    # Abstract base class from which all other CLI commands are derived. Provides
+    # some basic functionality that derived classes can leverage.
     class Command
       def initialize(argv=nil, options=nil)
         @argv = argv
@@ -16,7 +19,7 @@ module Conductor
       end
 
       def to_s
-        "#{simplify(self.class)}: #{documentation}"
+        "#{self.class.to_s}: #{documentation}"
       end
 
       def self.build(command, options)
@@ -37,13 +40,9 @@ module Conductor
       end
 
       def documentation
-        @documentation.nil? ? 'no documentation provided for this command' : @documentation
+        @documentation ||= 'no documentation provided for this command'
       end
 
-      def simplify(class_name)
-        match = class_name.to_s.match(/^Conductor\:\:([A-Z][a-z]+)(Command)?$/)
-        match.nil? ? class_name : match.captures.first
-      end
     end
   end
 end

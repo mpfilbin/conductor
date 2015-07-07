@@ -5,6 +5,8 @@ include Conductor::CLI
 module Conductor
   module CLI
     module Commands
+      # This class provides an interface for getting helpful information about
+      # Conductor and its subcommands
       class HelpCommand < Command
 
         # @param [Conductor::OptionsParser] options
