@@ -1,7 +1,7 @@
 NestedIterators:
   exclude:
-    - "Conductor::CLI::Parsers::OptionsParser#self.parse"  # should be refactored
-    - "Conductor::CLI::Parsers::StackFileParser#load" # should be refactored
+    - "Conductor::Parsers::OptionsParser#self.parse"  # should be refactored
+    - "Conductor::Parsers::StackFileParser#contents_with_symbolized_keys" # Unavoidable
 TooManyStatements:
   exclude:
-    - "Conductor::CLI::Parsers::OptionsParser#self.parse" # should be refactored
+    - "Conductor::Parsers::OptionsParser#self.parse" # should be refactored

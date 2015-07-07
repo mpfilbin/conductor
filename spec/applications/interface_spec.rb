@@ -1,6 +1,8 @@
-require_relative '../lib/conductor/cli/application_interface'
+require_relative '../../lib/conductor/applications/interface'
 
-describe Conductor::ApplicationInterface do
+include Conductor::Applications
+
+describe Interface do
 
   let(:valid_options) do
     {
@@ -22,14 +24,12 @@ describe Conductor::ApplicationInterface do
   describe 'stringification' do
     describe 'when a start command is not defined' do
       it 'raises a runtime exception' do
-        expect(lambda { Conductor::ApplicationInterface.new(invalid_options) }).to raise_error RuntimeError
+        expect(lambda { Interface.new(invalid_options) }).to raise_error RuntimeError
       end
     end
 
     describe 'with multiple parameters' do
-      let(:subject) do
-        Conductor::ApplicationInterface.new(valid_options)
-      end
+      let(:subject) { Interface.new(valid_options) }
 
       describe 'when stringified' do
         it 'contains all of the options' do
@@ -39,13 +39,11 @@ describe Conductor::ApplicationInterface do
     end
 
     describe 'when a home path is not given' do
-      let(:subject) { Conductor::ApplicationInterface.new(valid_options_without_home) }
+      let(:subject) { Interface.new(valid_options_without_home) }
 
       it 'does not include it in the result' do
         expect(subject.to_s).to eql('cmd -v -r --force')
       end
     end
   end
-
-
 end
