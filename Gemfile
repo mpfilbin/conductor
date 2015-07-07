@@ -4,4 +4,5 @@ ruby '2.1.5'
 group :test do
   gem 'rspec'
   gem 'simplecov', require: false
+  gem 'reek'
 end
