@@ -3,13 +3,12 @@ module Conductor
     # Provides a an abstraction layer over the commandline interfaces for
     # applications declared in Stack files.
     class Interface
-      attr_reader :home
+      attr_reader :home, :init
 
       def initialize(configuration = {})
         @home = configuration[:home]
-        @params = configuration[:params]
+        @params = configuration[:params] || []
         @init = configuration[:start]
-        validate
       end
 
 
@@ -18,16 +17,9 @@ module Conductor
       end
 
       private
-      def validate
-        raise RuntimeError.new("Stack component cannot be started due to missing command #{self}") unless @init
-      end
 
       def params
         @params.join(' ')
-      end
-
-      def init
-        @init || '???'
       end
 
       def path

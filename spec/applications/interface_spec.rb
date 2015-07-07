@@ -22,12 +22,6 @@ describe Interface do
   let(:valid_options_without_home) { valid_options.reject { |key| key == :home } }
 
   describe 'stringification' do
-    describe 'when a start command is not defined' do
-      it 'raises a runtime exception' do
-        expect(lambda { Interface.new(invalid_options) }).to raise_error RuntimeError
-      end
-    end
-
     describe 'with multiple parameters' do
       let(:subject) { Interface.new(valid_options) }
 
