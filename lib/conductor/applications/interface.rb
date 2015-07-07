@@ -13,7 +13,7 @@ module Conductor
 
 
       def to_s
-        "#{path} #{params}"
+        "#{path} #{params}".strip
       end
 
       private

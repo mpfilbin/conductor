@@ -10,7 +10,8 @@ module Conductor
         @process_id, @stdout, @stderr = nil
 
         Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
-          stdin.close
+
+          stdin.close # We will not be accepting any STDIN, so let's close the descriptor
           @process_id = thread.pid if thread.alive?
           @stdout, @stderr = stdout, stderr
 

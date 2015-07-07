@@ -1,11 +1,11 @@
 require_relative 'spec_helper'
-require_relative '../lib/conductor/cli/command'
+require_relative '../lib/conductor/command'
 
 
-describe Conductor::CLI::Command do
+describe Conductor::Command do
   describe 'instance methods' do
 
-    let(:subject) {Conductor::CLI::Command.new}
+    let(:subject) {Conductor::Command.new}
 
     describe 'execution' do
       it 'raises an exception' do
@@ -15,7 +15,7 @@ describe Conductor::CLI::Command do
 
     describe 'stringification' do
       it 'returns Command: no documentation provided for this command' do
-        expect(subject.to_s).to eql 'Conductor::CLI::Command: no documentation provided for this command'
+        expect(subject.to_s).to eql 'Conductor::Command: no documentation provided for this command'
       end
     end
   end
@@ -28,14 +28,14 @@ describe Conductor::CLI::Command do
         end
 
         it 'returns a new instance' do
-          expect(Conductor::CLI::Command.build('paste', {option: true})).to be_instance_of @klass
+          expect(Conductor::Command.build('paste', {option: true})).to be_instance_of @klass
         end
 
       end
 
       describe 'when the class does not exist' do
         it 'raises an exception' do
-          expect(lambda{Conductor::CLI::Command.build('copy', {option: true})}).to raise_error InvalidCommandError
+          expect(lambda{Conductor::Command.build('copy', {option: true})}).to raise_error InvalidCommandError
         end
       end
 

@@ -1,6 +1,5 @@
 require_relative '../../lib/conductor/environment'
 require_relative '../../lib/conductor/parsers/options_parser'
-require_relative '../../lib/conductor/cli/command'
 
 include Conductor::Parsers
 

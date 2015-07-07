@@ -6,13 +6,13 @@ module Conductor
     # This class encapsulates the behavior for parsing commandline arguments and
     # flags passed to Conductor from the commandline
     class OptionsParser
-      attr_accessor :verbose, :config_path, :pid_file, :command, :parser
+      attr_accessor :verbose, :config_path, :pid_file, :command, :parser, :argv
 
       # @param[Array] argv
       # @return [Conductor::OptionsParser]
       def self.parse(argv)
 
-        options = OptionsParser.new
+        options = OptionsParser.new(argv)
 
         opt_parser = OptionParser.new do |opts|
           opts.banner = 'Usage: conductor <command> [options]'
@@ -35,12 +35,11 @@ module Conductor
 
       end
 
-      def initialize
+      def initialize(argv = [])
         user_home = Conductor::Environment.fetch('HOME')
         @config_path = "#{user_home}/.orchestration"
         @pid_file = "#{user_home}/.current_pids"
-        @verbose = false
-        @argv = nil
+        @verbose, @argv, @command = false, argv, argv.first
       end
 
       private
@@ -54,6 +53,10 @@ module Conductor
 
       def verbose=(verbose)
         @verbose=verbose
+      end
+
+      def parser=(parser)
+        @parser = parser
       end
 
     end
