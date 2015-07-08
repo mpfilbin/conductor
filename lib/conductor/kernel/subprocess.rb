@@ -4,30 +4,47 @@ module Conductor
   module Kernel
     # This class spawns new subprocesses to run conductor applications within
     class Subprocess
-      attr_reader :stdout, :stderr, :process_id
+      attr_reader :stdout, :stderr
 
       def initialize(cmd, &block)
-        @process_id, @stdout, @stderr = nil
+        @thread, @stdout, @stderr = nil
+        @cmd, @block = cmd.to_s, block
+        self
+      end
 
-        Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
+
+      def id
+        @thread.pid
+      end
+
+      def spawn
+        Open3.popen3(@cmd) do |stdin, stdout, stderr, thread|
 
           stdin.close # We will not be accepting any STDIN, so let's close the descriptor
-          @process_id = thread.pid if thread.alive?
+          @thread = thread
           @stdout, @stderr = stdout, stderr
 
           {out: stdout, err: stderr}.each do |key, stream|
             Thread.new do
               until (line = stream.gets).nil? do
                 if key == :out
-                  block.call(line, nil, thread) if block_given?
+                  @block.call(line, nil, thread) if @block
                 else
-                  block.call(nil, line, thread) if block_given?
+                  @block.call(nil, line, thread) if @block
                 end
               end
             end
             thread.join
           end
         end
+      end
+
+      def kill
+        @thread.kill if @thread.alive?
+      end
+
+      def alive?
+        @thread.alive?
       end
     end
   end
