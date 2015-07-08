@@ -21,7 +21,9 @@ module Conductor
 
       def execute
         @application_stack.each do |application|
-          @process_manager << Subprocess.new(application)
+          process = Subprocess.new(application)
+          @process_manager << process
+          process.spawn
         end
       end
     end

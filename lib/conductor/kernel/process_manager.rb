@@ -14,12 +14,10 @@ module Conductor
 
       def << (process)
         @processes << process
-        process.spawn
       end
 
       def push(process)
         @processes << process
-        process.spawn
       end
 
       def kill_process(pid)

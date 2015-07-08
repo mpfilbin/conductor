@@ -4,7 +4,7 @@ module Conductor
   module Kernel
     # This class spawns new subprocesses to run conductor applications within
     class Subprocess
-      attr_reader :stdout, :stderr
+      attr_reader :stdout, :stderr, :cmd
 
       def initialize(cmd, &block)
         @thread, @stdout, @stderr = nil
