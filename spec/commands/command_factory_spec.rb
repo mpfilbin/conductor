@@ -32,4 +32,18 @@ describe CommandFactory do
     end
   end
 
+  describe 'instantiating a new KillCommand' do
+    it 'instantiates it with a set of options and an instance of process monitor' do
+      options = double(command: 'kill', argv: [], config_path: '')
+      process_mon = double('process_monitor')
+
+      expect(ProcessManager).to receive(:new).and_return(process_mon)
+      expect(KillCommand).to receive(:new).with(options, process_mon).and_call_original
+
+      factory_instance = CommandFactory.new
+      instance = factory_instance.instantiate(options)
+      expect(instance).to be_instance_of KillCommand
+    end
+  end
+
 end

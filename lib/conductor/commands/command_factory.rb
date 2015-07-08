@@ -22,6 +22,8 @@ module Conductor
             return OrchestrateCommand.new(options, @process_manager)
           when 'ps'
             return PSCommand.new(options, @process_manager)
+          when 'kill'
+            return KillCommand.new(options, @process_manager)
           else
             raise InvalidCommandError.new("Unknown command #{command}")
         end

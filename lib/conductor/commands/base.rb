@@ -6,6 +6,8 @@ module Conductor
   # Abstract base class from which all other CLI commands are derived. Provides
   # some basic functionality that derived classes can leverage.
   class Command
+    attr_reader :options
+
     def initialize(options = nil)
       @options = options
       @documentation = nil

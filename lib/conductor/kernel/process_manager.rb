@@ -20,13 +20,8 @@ module Conductor
         @processes << process
       end
 
-      def kill_process(pid)
-        begin
-          proc = @processes.find { |process| process.id == pid }
-          proc.kill
-        rescue NoMethodError
-          raise RuntimeError.new("No known process with id: #{pid}")
-        end
+      def find(pid)
+        @processes.find { |process| process.id == pid}
       end
 
     end
