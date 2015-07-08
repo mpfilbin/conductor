@@ -19,10 +19,13 @@ module Conductor
 
         case command
           when 'orchestrate'
-            OrchestrateCommand.new(options, @process_manager)
+            return OrchestrateCommand.new(options, @process_manager)
+          when 'ps'
+            return PSCommand.new(options, @process_manager)
           else
             raise InvalidCommandError.new("Unknown command #{command}")
         end
+
       end
     end
   end
