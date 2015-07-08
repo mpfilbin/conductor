@@ -11,8 +11,8 @@ module Conductor
       attr_reader :file_contents
 
       # @param [Conductor::CLI::OptionsParser] options
-      def initialize(stack_name = nil, options = nil)
-        @stack_file_path = File.join(options.config_path, "#{stack_name}.yml")
+      def initialize(options = nil)
+        @stack_file_path = File.join(options.config_path, "#{options.stack_name}.yml")
         read_file_contents
       end
 

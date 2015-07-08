@@ -3,6 +3,7 @@ NestedIterators:
     - "Conductor::Parsers::OptionsParser#self.parse"  # should be refactored
     - "Conductor::Parsers::StackFileParser#contents_with_symbolized_keys" # Unavoidable
     - "Conductor::Kernel::Subprocess#spawn"
+    - "Conductor::Commands::OrchestrateCommand#execute"
 TooManyStatements:
   exclude:
     - "Conductor::Parsers::OptionsParser#self.parse" # should be refactored

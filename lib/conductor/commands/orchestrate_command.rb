@@ -13,13 +13,15 @@ module Conductor
     class OrchestrateCommand < Command
       # @param [Conductor::OptionsParser] options
       def initialize(options, process_manager)
-        @application_stack = StackFileParser.new(options.argv[1], options)
+        @application_stack = StackFileParser.new(options)
         super(options, process_manager)
       end
 
       def execute
         @application_stack.each do |application|
-          process = Subprocess.new(application)
+          process = Subprocess.new(application) do |stdout, stderr, process_id|
+
+          end
           process.spawn
           process_manager << process
         end

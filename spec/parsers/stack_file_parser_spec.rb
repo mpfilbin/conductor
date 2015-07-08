@@ -17,7 +17,7 @@ describe StackFileParser do
   describe 'loading an applications file' do
     describe 'when the file does not exist' do
       it 'raises and exception' do
-        expect(lambda { StackFileParser.new('foo', valid_options).parse }).to raise_error SystemCallError
+        expect(lambda { StackFileParser.new(valid_options).parse }).to raise_error SystemCallError
       end
     end
 
@@ -27,7 +27,7 @@ describe StackFileParser do
       end
 
       it 'does not raise an exception' do
-        expect(lambda { StackFileParser.new('test_stack', valid_options) }).to_not raise_exception
+        expect(lambda { StackFileParser.new(valid_options) }).to_not raise_exception
       end
     end
   end
@@ -35,7 +35,7 @@ describe StackFileParser do
   describe 'parsing yaml file contents' do
     before :each do
       expect(YAML).to receive(:load_file).and_return(yaml_contents)
-      @subject = StackFileParser.new('my_stack', valid_options).parse
+      @subject = StackFileParser.new(valid_options).parse
     end
 
     it 'returns an instance of Conductor::Applications::Stack' do

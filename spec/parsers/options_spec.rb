@@ -21,24 +21,6 @@ describe OptionsParser do
   end
 
   describe 'parsing' do
-    describe 'verbosity' do
-      describe 'when the verbose option is passed' do
-        let(:subject) { OptionsParser.parse(['--verbose']) }
-
-        it 'sets the verbose option to true' do
-          expect(subject.verbose).to be_truthy
-        end
-      end
-
-      describe 'when the verbose option is not passed' do
-        let(:subject) { OptionsParser.parse([]) }
-
-        it 'sets the verbose option to false' do
-          expect(subject.verbose).to be_falsey
-        end
-      end
-    end
-
     describe 'setting the configuration path' do
       describe 'the -c option' do
         describe 'when passed with a value' do
