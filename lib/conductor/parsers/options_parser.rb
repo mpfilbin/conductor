@@ -42,6 +42,10 @@ module Conductor
         @verbose, @argv, @command = false, argv, argv.first
       end
 
+      def command
+        @command.to_s.to_sym
+      end
+
       private
       def pid_file=(pid)
         @pid_file = pid

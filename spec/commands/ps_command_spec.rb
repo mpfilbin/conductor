@@ -12,8 +12,8 @@ describe PSCommand do
     @options = OptionsParser.new([])
     @subject = PSCommand.new(@options, @process_manager)
 
-    @double1 = double('process', id: '123', spawn: nil, cmd: 'pwd')
-    @double2 = double('process', id: '124', spawn: nil, cmd: 'ls')
+    @double1 = double('process', id: '123', spawn: nil, cmd: :pwd)
+    @double2 = double('process', id: '124', spawn: nil, cmd: :ls)
     @process_manager << @double1
     @process_manager << @double2
   end

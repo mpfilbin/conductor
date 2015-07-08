@@ -18,11 +18,11 @@ module Conductor
         command = options.command
 
         case command
-          when 'orchestrate'
+          when :orchestrate
             return OrchestrateCommand.new(options, @process_manager)
-          when 'ps'
+          when :ps
             return PSCommand.new(options, @process_manager)
-          when 'kill'
+          when :kill
             return KillCommand.new(options, @process_manager)
           else
             raise InvalidCommandError.new("Unknown command #{command}")
