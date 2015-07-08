@@ -10,6 +10,13 @@ module Conductor
 
     # This class is responsible for generating instances of command classes
     class CommandFactory
+      COMMANDS = {
+          orchestrate: OrchestrateCommand,
+          ps: PSCommand,
+          kill: KillCommand,
+          kill_all: KillAllCommand
+      }
+
       def initialize
         @process_manager = ProcessManager.new
       end
@@ -17,19 +24,11 @@ module Conductor
       def instantiate(options)
         command = options.command
 
-        case command
-          when :orchestrate
-            return OrchestrateCommand.new(options, @process_manager)
-          when :ps
-            return PSCommand.new(options, @process_manager)
-          when :kill
-            return KillCommand.new(options, @process_manager)
-          when :kill_all
-            return KillAllCommand.new(options, @process_manager)
-          else
-            raise InvalidCommandError.new(command)
+        begin
+          return COMMANDS[command].new(options, @process_manager)
+        rescue NoMethodError
+          raise InvalidCommandError.new(command)
         end
-
       end
     end
   end
