@@ -15,18 +15,31 @@ module Conductor
         options = OptionsParser.new(argv)
 
         opt_parser = OptionParser.new do |opts|
-          opts.banner = 'Usage: conductor <command> [options]'
+          opts.banner = <<-eos
+            Usage: conductor <command> [options]:
+
+            Supported commands include...
+              - orchestrate <stack_name>: starts up an application stack defined by a stack file
+              - ps: lists all of the actively running process along with their PIDs
+              - kill <pid>: kills a process with a given PID. Will not restart it.
+              - kill_all: kills all processes managed by Conductor
+
+            Supported options:
+              -v [--verbose]: Executes a given command verbosely
+              -c CONFIG [--config=CONFIG]: Specify a path for your stack files
+              -p PIDSFILE [--pids=PIDSFILE]: Specify a path to write PIDs to
+          eos
 
           opts.on('-v', '--verbose', 'Execute commands verbosely') do
             options.send(:verbose=, true)
           end
 
           opts.on('-c CONFIG', '--config=CONFIG', String, 'Path to the Conductor configuration file') do |config_file_path|
-            options.send(:config_path=, config_file_path.strip())
+            options.send(:config_path=, config_file_path.strip)
           end
 
           opts.on('-p PIDS', '--pids=PIDS', String, 'Path to the PIDS file to track processes with') do |pid_file_path|
-            options.send(:pid_file=, pid_file_path.strip())
+            options.send(:pid_file=, pid_file_path.strip)
           end
         end
 
