@@ -7,13 +7,11 @@ module Conductor
     class KillCommand < Command
       # @param [Conductor::OptionsParser] options
       def initialize(options, process_manager)
-        document 'kills a given process orchestrated through Orchestrator'
-        @process_manager = process_manager
-        super options
+        super(options, process_manager)
       end
 
       def execute
-        @process_manager.find(options.argv[1]).kill
+        process_manager.find(options.argv[1]).kill
       end
     end
   end

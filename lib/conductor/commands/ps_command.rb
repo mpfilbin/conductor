@@ -8,7 +8,6 @@ module Conductor
 
       # @param [Conductor::OptionsParser] options
       def initialize(options, process_monitor)
-        document 'lists out the currently living processes orchestrated by Orchestrator'
         @process_monitor = process_monitor
         super options
       end

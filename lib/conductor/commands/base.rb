@@ -6,29 +6,15 @@ module Conductor
   # Abstract base class from which all other CLI commands are derived. Provides
   # some basic functionality that derived classes can leverage.
   class Command
-    attr_reader :options
+    attr_reader :options, :process_manager
 
-    def initialize(options = nil)
+    def initialize(options = nil, process_manager = nil)
       @options = options
-      @documentation = nil
+      @process_manager = process_manager
     end
 
     def execute
       raise 'Abstract class. Do not instantiate. Please subclass and override'
     end
-
-    def to_s
-      "#{self.class.to_s}: #{documentation}"
-    end
-
-    private
-    def document(text)
-      @documentation = text
-    end
-
-    def documentation
-      @documentation ||= 'no documentation provided for this command'
-    end
-
   end
 end

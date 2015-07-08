@@ -4,7 +4,7 @@ module Conductor
     # command
     class InvalidCommandError < NameError
       def initialize(command)
-        super("#{command} is not a valid command", 'InvalidCommandError')
+        super("Unknown command '#{command}'", 'InvalidCommandError')
       end
 
     end

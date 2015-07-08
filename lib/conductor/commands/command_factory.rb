@@ -24,8 +24,10 @@ module Conductor
             return PSCommand.new(options, @process_manager)
           when :kill
             return KillCommand.new(options, @process_manager)
+          when :kill_all
+            return KillAllCommand.new(options, @process_manager)
           else
-            raise InvalidCommandError.new("Unknown command #{command}")
+            raise InvalidCommandError.new(command)
         end
 
       end
