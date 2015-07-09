@@ -20,7 +20,8 @@ describe PSCommand do
 
 
   it 'it lists PID and command for each process in the manager' do
-    expect(@double2).to receive(:id).once
+    allow_any_instance_of(Kernel).to receive(:puts).with('123 : pwd')
+    allow_any_instance_of(Kernel).to receive(:puts).with('124 : ls')
     expect(@double1).to receive(:id).once
     expect(@double1).to receive(:cmd).once
     expect(@double2).to receive(:cmd).once
