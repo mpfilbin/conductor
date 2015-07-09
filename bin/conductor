@@ -1,8 +1,12 @@
 #! /usr/bin/env ruby
 
 begin
-  require 'mygem'
+  require '../lib/conductor'
 rescue LoadError
   require 'rubygems'
-  require 'mygem'
+  require '../lib/conductor'
+end
+
+cli = Conductor::CLI.new(OptionsParser.new(ARGV), CommandFactory.new).run
+while cli.running
 end

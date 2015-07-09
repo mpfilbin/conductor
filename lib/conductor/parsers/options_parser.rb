@@ -1,5 +1,4 @@
 require 'optparse'
-require_relative '../environment'
 
 module Conductor
   module Parsers
@@ -57,7 +56,7 @@ module Conductor
       end
 
       def initialize(argv = [])
-        user_home = Conductor::Environment.fetch('HOME')
+        user_home = ENV['HOME']
         @config_path = "#{user_home}/.orchestration"
         @pid_file = "#{user_home}/.current_pids"
         @logging_path = '/var/log'

@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require 'conductor/version'
+require '../lib/conductor'
 
 Gem::Specification.new do |spec|
   spec.name        = 'conductor'
@@ -14,10 +14,20 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rspec', '~>3.2.1'
   spec.add_development_dependency 'cucumber', '~>2.0.0'
-  spec.add_development_dependency 'rspec-mocks'
+  spec.add_development_dependency 'mocha'
+  spec.add_development_dependency 'reek'
+  spec.add_development_dependency 'simplecov'
   
   spec.files         = `git ls-files`.split("\n")
   spec.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   spec.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  spec.require_paths = %w(
+                            lib/conductor
+                            lib/conductor/applications
+                            lib/conductor/commands
+                            lib/conductor/exceptions
+                            lib/conductor/kernel
+                            lib/conductor/logging
+                            lib/conductor/parsers
+                        )
 end
