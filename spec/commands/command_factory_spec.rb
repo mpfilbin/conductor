@@ -5,12 +5,13 @@ include Conductor::Commands
 describe CommandFactory do
   describe 'instantiating a new OrchestrateCommand' do
     it 'instantiates it with a set of options and an instance of process monitor' do
-      options = double(command: :orchestrate, stack_name: 'my_sack', config_path: '')
+      options = double(command: :orchestrate, stack_name: 'my_sack', config_path: '', logging_path:'')
       process_mon = double('process_monitor')
 
       expect(YAML).to receive(:load_file)
       expect(ProcessManager).to receive(:new).and_return(process_mon)
       expect(OrchestrateCommand).to receive(:new).with(options, process_mon).and_call_original
+      expect(File).to receive(:open).once
 
       factory_instance = CommandFactory.new
       instance = factory_instance.instantiate(options)

@@ -25,17 +25,20 @@ describe OrchestrateCommand do
               ])
   end
 
-  it 'parses the appropriate stack file' do
+  before :example do
     expect(StackFileParser).to receive(:new).once.with(options).and_return(stack)
+    expect(FileLogger).to receive(:new).once.with(options)
+  end
+
+  it 'parses the appropriate stack file' do
     OrchestrateCommand.new(options, double)
   end
 
   it 'instantiates a new FileLogger instance' do
-    expect(FileLogger).t
+    OrchestrateCommand.new(options, double)
   end
 
   it 'creates a subprocess for each application in the stack file' do
-    expect(StackFileParser).to receive(:new).once.with(options).and_return(stack)
     process_manager_double = double()
     expect(process_manager_double).to receive(:<<).twice
     stack.each do |application|
@@ -48,7 +51,6 @@ describe OrchestrateCommand do
   it 'adds the processes to the Process manager' do
     process_manager = double('process_manager')
     expect(process_manager).to receive(:<<).at_least(:once)
-    expect(StackFileParser).to receive(:new).once.with(options).and_return(stack)
 
     OrchestrateCommand.new(options, process_manager).execute
   end

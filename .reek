@@ -8,6 +8,11 @@ TooManyStatements:
   exclude:
     - "Conductor::Parsers::OptionsParser#self.parse" # should be refactored
     - "Conductor::Kernel::Subprocess#spawn"
+    - "Conductor::Commands::OrchestrateCommand#execute"
 NilCheck:
   exclude:
     - "Conductor::Kernel::Subprocess#spawn"
+    - "Conductor::Commands::OrchestrateCommand#execute"
+FeatureEnvy:
+  exclude:
+    - "Conductor::Logging::FileLogger#initialize"

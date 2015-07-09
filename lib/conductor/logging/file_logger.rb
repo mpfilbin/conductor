@@ -1,3 +1,4 @@
+require 'logger'
 module Conductor
   module Logging
     # Provides a simple logger that writes a log to the file system
