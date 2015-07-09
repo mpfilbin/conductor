@@ -16,3 +16,4 @@ NilCheck:
 FeatureEnvy:
   exclude:
     - "Conductor::Logging::FileLogger#initialize"
+    - "Conductor::Commands::PSCommand#execute"

@@ -14,7 +14,7 @@ module Conductor
 
       def execute
         @process_monitor.each do |process|
-          puts "#{process.id} : #{process.cmd}"
+          STDOUT.write "#{process.id} : #{process.cmd}"
         end
       end
     end

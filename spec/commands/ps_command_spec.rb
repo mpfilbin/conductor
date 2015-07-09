@@ -1,39 +1,37 @@
 require_relative '../../lib/conductor/commands/ps_command'
 require_relative '../../lib/conductor/kernel/process_manager'
-require_relative '../../lib/conductor/parsers/options_parser'
 
-include Conductor::Kernel
-include Conductor::Parsers
 include Conductor::Commands
 
 describe PSCommand do
-  before :example do
-    @process_manager = ProcessManager.new
-    @options = OptionsParser.new([])
-    @subject = PSCommand.new(@options, @process_manager)
+  let(:process_manager) { Conductor::Kernel::ProcessManager.new }
+  let(:options) { mock('options') }
+  let(:process1) { stub('process1', id: '123', cmd: 'ls') }
+  let(:process2) { stub('process2', id: '456', cmd: 'pwd') }
+  subject { PSCommand.new(options, process_manager) }
 
-    @double1 = double('process', id: '123', spawn: nil, cmd: :pwd)
-    @double2 = double('process', id: '124', spawn: nil, cmd: :ls)
-    @process_manager << @double1
-    @process_manager << @double2
+  before :example do
+    [process1, process2].each { |process| process_manager << process }
+
   end
 
 
   it 'it lists PID and command for each process in the manager' do
-    allow_any_instance_of(Kernel).to receive(:puts).with('123 : pwd')
-    allow_any_instance_of(Kernel).to receive(:puts).with('124 : ls')
-    expect(@double1).to receive(:id).once
-    expect(@double1).to receive(:cmd).once
-    expect(@double2).to receive(:cmd).once
+    STDOUT.stubs(:write)
 
-    @subject.execute
+    process1.expects(:id).once
+    process1.expects(:cmd).once
+    process2.expects(:id).once
+    process2.expects(:cmd).once
+
+    subject.execute
   end
 
   it 'writes to STDOUT' do
-    expect_any_instance_of(Kernel).to receive(:puts).with('123 : pwd')
-    expect_any_instance_of(Kernel).to receive(:puts).with('124 : ls')
+    STDOUT.expects(:write).with('123 : ls').once
+    STDOUT.expects(:write).with('456 : pwd').once
 
-    @subject.execute
+    subject.execute
   end
 
 end

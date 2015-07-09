@@ -1,24 +1,26 @@
+require_relative '../../lib/conductor/commands/killall_command'
+require_relative '../../lib/conductor/kernel/process_manager'
+
+include Conductor::Commands
+include Conductor::Kernel
 
 describe KillAllCommand do
+  let(:process_manager) { ProcessManager.new }
+  let(:options) { mock('options') }
+  let(:process1) { mock('process1') }
+  let(:process2) { mock('process2') }
 
   before :example do
-    @process_manager = ProcessManager.new
-
-    @double1 = double('process', id: '123')
-    @double2 = double('process', id: '456')
-
-    @process_manager << @double1
-    @process_manager << @double2
-
-    @options = double('options', argv: %w(kill_all 456))
+    process1.stubs(:id).returns('123')
+    process2.stubs(:id).returns('456')
+    [process1, process2].each { |process| process_manager << process }
   end
 
   it 'kills the process with a matching PID' do
-    expect(@process_manager).to receive(:each).and_call_original
-    expect(@double1).to receive(:kill).once
-    expect(@double2).to receive(:kill).once
+    process1.expects(:kill).once
+    process2.expects(:kill).once
 
-    KillAllCommand.new(@options, @process_manager).execute
+    KillAllCommand.new(options, process_manager).execute
   end
 
 end

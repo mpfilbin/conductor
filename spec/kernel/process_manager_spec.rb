@@ -11,7 +11,7 @@ describe ProcessManager do
       subject { ProcessManager.new }
 
       before :each do
-        @subprocess = double('subprocess', id: '123')
+        @subprocess = stub('subprocess', id: '123')
         subject << @subprocess
       end
       it 'finds the process' do
@@ -23,7 +23,7 @@ describe ProcessManager do
       subject { ProcessManager.new }
 
       before :each do
-        @subprocess = double('subprocess', id: '123')
+        @subprocess = stub('subprocess', id: '123')
         subject << @subprocess
       end
       it 'finds the process' do

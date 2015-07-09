@@ -23,7 +23,7 @@ describe StackFileParser do
 
     describe 'when the file does exist' do
       before :each do
-        expect(YAML).to receive(:load_file).and_return(yaml_contents)
+        YAML.expects(:load_file).returns(yaml_contents)
       end
 
       it 'does not raise an exception' do
@@ -34,7 +34,7 @@ describe StackFileParser do
 
   describe 'parsing yaml file contents' do
     before :each do
-      expect(YAML).to receive(:load_file).and_return(yaml_contents)
+      YAML.expects(:load_file).returns(yaml_contents)
       @subject = StackFileParser.new(valid_options).parse
     end
 
