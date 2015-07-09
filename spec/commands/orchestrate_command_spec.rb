@@ -30,6 +30,10 @@ describe OrchestrateCommand do
     OrchestrateCommand.new(options, double)
   end
 
+  it 'instantiates a new FileLogger instance' do
+    expect(FileLogger).t
+  end
+
   it 'creates a subprocess for each application in the stack file' do
     expect(StackFileParser).to receive(:new).once.with(options).and_return(stack)
     process_manager_double = double()

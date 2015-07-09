@@ -28,9 +28,9 @@ module Conductor
             Thread.new do
               until (line = stream.gets).nil? do
                 if key == :out
-                  @block.call(line, nil, thread) if @block
+                  @block.call(line, nil, thread, cmd) if @block
                 else
-                  @block.call(nil, line, thread) if @block
+                  @block.call(nil, line, thread, cmd) if @block
                 end
               end
             end
