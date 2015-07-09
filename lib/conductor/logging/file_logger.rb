@@ -6,10 +6,10 @@ module Conductor
 
       # @param [Conductor::Parsers::OptionsParser]options
       def initialize(options)
-        path = options.logging_path + File::SEPARATOR + "#{options.stack_name}.log"
-        file = File.open(path, File::APPEND)
+        @path = options.logging_path + File::SEPARATOR + "#{options.stack_name}.log"
+        @file = File.open(@path, File::APPEND)
         set_log_format
-        super(file)
+        super(@file)
       end
 
       # @param [String] pid
@@ -28,7 +28,7 @@ module Conductor
 
       private
       def set_log_format
-        self.formatter = proc do |severity, datetime, progname, msg|
+        self.formatter = proc do |severity, datetime, program_name, msg|
           "#{severity} #{datetime}: #{msg}"
         end
       end
