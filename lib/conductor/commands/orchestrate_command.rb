@@ -24,13 +24,13 @@ module Conductor
 
       def execute
         @application_stack.each do |application|
-          process = Subprocess.new(application, @pid_factory.call(application)) do |stdout, stderr, process_id, cmd|
-            if stdout.nil?
-              @logger.info(process_id, cmd, stdout)
-            else
-              @logger.error(process_id, cmd, stderr)
+          process = Subprocess.new(application, @pid_factory) do |stdout, stderr, process_id, cmd|
+            {out: stdout, err: stderr}.each do |stream, data|
+              message = stream == :out ? :info : :error
+              @logger.send(message, process_id, cmd, data) unless data.nil?
             end
           end
+
           process.spawn
           process_manager << process
         end

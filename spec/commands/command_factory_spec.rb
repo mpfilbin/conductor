@@ -1,6 +1,8 @@
 require_relative '../../lib/conductor/commands/command_factory'
+require_relative '../../lib/conductor/exceptions/invalid_command_error'
 
 include Conductor::Commands
+include Conductor::Errors
 
 describe CommandFactory do
   let(:options) { mock('options') }
@@ -56,4 +58,13 @@ describe CommandFactory do
     end
   end
 
+  describe 'when attempting to instantiate a command that does not exist' do
+    before :each do
+      options.stubs(:command).returns(:i_dont_exist)
+    end
+
+    it 'raises an InvalidCommand exception' do
+      expect(lambda {CommandFactory.new.instantiate(options)}).to raise_error(InvalidCommandError)
+    end
+  end
 end
