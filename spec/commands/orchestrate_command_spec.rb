@@ -3,7 +3,7 @@ require_relative '../../lib/conductor/parsers/stack_file_parser'
 require_relative '../../lib/conductor/parsers/options_parser'
 require_relative '../../lib/conductor/applications/stack'
 require_relative '../../lib/conductor/kernel/subprocess'
-require_relative '../../lib/conductor/kernel/pid_file_writer'
+require_relative '../../lib/conductor/kernel/pid_file'
 
 include Conductor::Commands
 include Conductor::Parsers
@@ -36,7 +36,7 @@ describe OrchestrateCommand do
     FileLogger.stubs(:new)
     Subprocess.expects(:new).returns(process1)
     Subprocess.expects(:new).returns(process2)
-    PIDFileWriter.expects(:new).twice
+    PIDFile.expects(:new).twice
 
     process_manager.expects(:<<).with(process1).once
     process_manager.expects(:<<).with(process2).once

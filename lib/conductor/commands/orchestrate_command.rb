@@ -1,7 +1,7 @@
 require_relative '../commands/base'
 require_relative '../parsers/stack_file_parser'
 require_relative '../kernel/subprocess'
-require_relative '../kernel/pid_file_writer'
+require_relative '../kernel/pid_file'
 require_relative '../kernel/process_manager'
 require_relative '../logging/file_logger'
 
@@ -18,7 +18,7 @@ module Conductor
       def initialize(options, process_manager)
         @application_stack = StackFileParser.new(options)
         @logger = FileLogger.new(options)
-        @pid_factory = lambda { |process| PIDFileWriter.new(options, process) }
+        @pid_factory = lambda { |process| PIDFile.new(options, process) }
         super(options, process_manager)
       end
 

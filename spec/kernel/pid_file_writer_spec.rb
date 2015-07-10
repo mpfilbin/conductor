@@ -1,12 +1,12 @@
-require_relative '../../lib/conductor/kernel/pid_file_writer'
+require_relative '../../lib/conductor/kernel/pid_file'
 
 include Conductor::Kernel
 
-describe PIDFileWriter do
+describe PIDFile do
   let(:options) { stub('options', pid_path: '/var/run') }
   let(:process) { stub('process', cmd: 'my_app') }
   let(:file_descriptor) { stub('file_descriptor', {}) }
-  subject { PIDFileWriter.new(options, process) }
+  subject { PIDFile.new(options, process) }
 
   describe 'opening the instance of PIDFileWriter' do
     it 'writes the process ID to the pid fiel' do

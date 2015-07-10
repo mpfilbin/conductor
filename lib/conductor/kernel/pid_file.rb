@@ -1,7 +1,7 @@
 module Conductor
   module Kernel
     # Writs the process id for a process managed by conductor to .pid file
-    class PIDFileWriter
+    class PIDFile
       attr_reader :file_path
 
       # @param [Conductor::Parsers::OptionsParser]options
@@ -17,7 +17,11 @@ module Conductor
       end
 
       def close
-        File.delete(pid_file) if File.exists?(pid_file)
+        File.delete(pid_file) if exists?
+      end
+
+      def exists?
+        File.exists?(pid_file)
       end
 
     end
