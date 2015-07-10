@@ -34,4 +34,13 @@ describe Stack do
     end
   end
 
+  describe 'enumeration' do
+    describe 'when passed a block' do
+      let(:block) {lambda {|item|}}
+      it 'invokes that block for each item in the collection' do
+        block.expects(:call).at_least(2)
+        subject.each(&block)
+      end
+    end
+  end
 end

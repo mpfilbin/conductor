@@ -89,5 +89,46 @@ describe OptionsParser do
         end
       end
     end
+
+    describe 'setting the logging path' do
+      describe 'the -l option' do
+        describe 'when passed a value' do
+          let(:subject) { OptionsParser.parse(['-l ./foo/bar']) }
+
+          it 'sets the pids file path to the value' do
+            expect(subject.logging_path).to eql('./foo/bar')
+          end
+        end
+
+        describe 'when not passed a value' do
+          it 'raises an exception' do
+            expect(lambda { OptionsParser.parse(['-l']) }).to raise_exception OptionParser::MissingArgument
+          end
+        end
+      end
+
+      describe 'the --logging-path= option' do
+        describe 'when passed a value' do
+          let(:subject) { OptionsParser.parse(['--logging-path=./foo/bar']) }
+
+          it 'sets the PIDs file path' do
+            expect(subject.logging_path).to eql('./foo/bar')
+          end
+        end
+
+        describe 'when not passed a value' do
+          it 'raises and exception' do
+            expect(lambda { OptionsParser.parse(['--logging-path=']) }).to raise_exception OptionParser::InvalidArgument
+          end
+        end
+      end
+    end
+  end
+
+  describe 'getting the primary command from ARGV' do
+    let(:subject) { OptionsParser.new(['orchestrate', 'mystack', '-l /var/log']) }
+    it 'returns a symbolized representation of the command' do
+      expect(subject.command).to eql(:orchestrate)
+    end
   end
 end
