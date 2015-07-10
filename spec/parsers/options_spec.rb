@@ -14,8 +14,8 @@ describe OptionsParser do
       expect(subject.config_path).to eq('/Users/jack/.orchestration')
     end
 
-    it "defaults the pid file to the current user's home directory" do
-      expect(subject.pid_file).to eq('/Users/jack/.current_pids')
+    it 'defaults the pid file to /var/run' do
+      expect(subject.pid_path).to eq('/var/run')
     end
   end
 
@@ -62,7 +62,7 @@ describe OptionsParser do
           let(:subject) { OptionsParser.parse(['-p ./foo/bar']) }
 
           it 'sets the pids file path to the value' do
-            expect(subject.pid_file).to eql('./foo/bar')
+            expect(subject.pid_path).to eql('./foo/bar')
           end
         end
 
@@ -78,7 +78,7 @@ describe OptionsParser do
           let(:subject) { OptionsParser.parse(['--pids=./foo/bar']) }
 
           it 'sets the PIDs file path' do
-            expect(subject.pid_file).to eql('./foo/bar')
+            expect(subject.pid_path).to eql('./foo/bar')
           end
         end
 

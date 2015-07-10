@@ -63,6 +63,3 @@ DEPENDENCIES
   reek
   rspec
   simplecov
-
-BUNDLED WITH
-   1.10.0

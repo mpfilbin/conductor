@@ -5,7 +5,7 @@ module Conductor
     # This class encapsulates the behavior for parsing commandline arguments and
     # flags passed to Conductor from the commandline
     class OptionsParser
-      attr_accessor :verbose, :config_path, :pid_file, :command, :parser, :stack_name, :logging_path
+      attr_accessor :verbose, :config_path, :pid_path, :command, :parser, :stack_name, :logging_path
 
       # @param[Array] argv
       # @return [Conductor::OptionsParser]
@@ -40,7 +40,7 @@ module Conductor
           end
 
           opts.on('-p PIDS', '--pids=PIDS', String, 'Path to the PIDS file to track processes with') do |pid_file_path|
-            options.send(:pid_file=, pid_file_path.strip)
+            options.send(:pid_path=, pid_file_path.strip)
           end
 
           opts.on('-l LOGGINGPATH', '--logging-path=LOGGINGPATH', String, 'Path to the directory where log file will be written') do |log_file_path|
@@ -58,7 +58,7 @@ module Conductor
       def initialize(argv = [])
         user_home = ENV['HOME']
         @config_path = "#{user_home}/.orchestration"
-        @pid_file = "#{user_home}/.current_pids"
+        @pid_path = '/var/run'
         @logging_path = '/var/log'
         @verbose, @command, @stack = false, argv[0], argv[1]
       end
@@ -68,8 +68,8 @@ module Conductor
       end
 
       private
-      def pid_file=(pid)
-        @pid_file = pid
+      def pid_path=(pid)
+        @pid_path = pid
       end
 
       def config_path=(config)
