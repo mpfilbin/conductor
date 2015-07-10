@@ -29,10 +29,11 @@ module Conductor
             {out: stdout, err: stderr}.each do |key, stream|
               Thread.new do
                 until (line = stream.gets).nil? do
+                  thread_id = thread.id
                   if key == :out
-                    @block.call(line, nil, thread, @cmd) if @block
+                    @block.call(line, nil, thread_id, @cmd) if @block
                   else
-                    @block.call(nil, line, thread, @cmd) if @block
+                    @block.call(nil, line, thread_id, @cmd) if @block
                   end
                 end
               end
@@ -41,7 +42,6 @@ module Conductor
           end
         end
       end
-
 
       def kill
         if @thread.alive?

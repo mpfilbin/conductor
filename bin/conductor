@@ -8,5 +8,6 @@ rescue LoadError
 end
 
 cli = Conductor::CLI.new(OptionsParser.new(ARGV), CommandFactory.new).run
+
 while cli.running
 end
