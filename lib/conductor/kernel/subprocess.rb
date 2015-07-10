@@ -6,9 +6,9 @@ module Conductor
     class Subprocess
       attr_reader :stdout, :stderr, :cmd
 
-      def initialize(cmd, &block)
+      def initialize(interface, pid_writer, &block)
         @thread, @stdout, @stderr = nil
-        @cmd, @block = cmd.to_s, block
+        @cmd, @pid_file, @block = interface.to_s, pid_writer, block
         self
       end
 
