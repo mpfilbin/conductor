@@ -7,8 +7,10 @@ module Conductor
       attr_reader :stdout, :stderr, :cmd, :pid_file
 
       def initialize(interface, pid_file, &block)
+
         @thread, @stdout, @stderr = nil
-        @cmd, @pid_file, @block = interface.to_s, pid_file.call(self), block
+        @cmd, @pid_file, = interface.to_s, pid_file.call(self)
+        @block = block ||= ->(*args){}
         self
       end
 
@@ -31,9 +33,9 @@ module Conductor
                 until (line = stream.gets).nil? do
                   thread_id = thread.id
                   if key == :out
-                    @block.call(line, nil, thread_id, @cmd) if @block
+                    @block.call(line, nil, thread_id, @cmd)
                   else
-                    @block.call(nil, line, thread_id, @cmd) if @block
+                    @block.call(nil, line, thread_id, @cmd)
                   end
                 end
               end
@@ -53,6 +55,7 @@ module Conductor
       def alive?
         @thread.alive?
       end
+
     end
   end
 end

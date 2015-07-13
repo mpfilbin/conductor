@@ -78,6 +78,21 @@ describe Subprocess do
             subject.spawn
           end
         end
+
+        describe 'if a block was not passed to the constructor' do
+          subject { Subprocess.new(interface, pid_file_builder) }
+          before :each do
+            Thread.stubs(:new).yields
+            Open3.stubs(:popen3).once.yields(stdin, stdout, stderr, thread)
+            thread.stubs(:id).returns(123)
+            stdout.stubs(:gets).returns('hello world', nil)
+          end
+          it 'it does not call that block with the data from STDOUT' do
+            callback.expects(:call).with('hello world', nil, 123, 'my_command').never
+            subject.spawn
+          end
+        end
+
       end
 
       describe 'when the backed process writes to the STDERR stream' do
@@ -88,8 +103,22 @@ describe Subprocess do
             thread.stubs(:id).returns(123)
             stderr.stubs(:gets).returns('goodbye world', nil)
           end
-          it 'calls that block with the data from STDERR' do
+          it 'calls that block with the data from stderr' do
             callback.expects(:call).with(nil, 'goodbye world', 123, 'my_command')
+            subject.spawn
+          end
+        end
+
+        describe 'if a block was not passed to the constructor' do
+          subject { Subprocess.new(interface, pid_file_builder) }
+          before :each do
+            Thread.stubs(:new).yields
+            Open3.stubs(:popen3).once.yields(stdin, stdout, stderr, thread)
+            thread.stubs(:id).returns(123)
+            stderr.stubs(:gets).returns('goodbye world', nil)
+          end
+          it 'calls that block with the data from stderr' do
+            callback.expects(:call).with(nil, 'goodbye world', 123, 'my_command').never
             subject.spawn
           end
         end
