@@ -5,7 +5,7 @@ module Conductor
     # This class encapsulates the behavior for parsing commandline arguments and
     # flags passed to Conductor from the commandline
     class OptionsParser
-      attr_accessor :verbose, :config_path, :pid_path, :command, :parser, :stack_name, :logging_path
+      attr_reader :config_path, :pid_path, :command, :stack, :logging_path
 
       # @param[Array] argv
       # @return [Conductor::OptionsParser]

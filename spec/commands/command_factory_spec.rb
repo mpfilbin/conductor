@@ -9,7 +9,7 @@ describe CommandFactory do
   let(:process_manager) { mock('process_monitor') }
 
   before :each do
-    options.stubs(:stack_name).returns('my_stack')
+    options.stubs(:stack).returns('my_stack')
     options.stubs(:config_path).returns('/home/user/.stacks/')
     options.stubs(:logging_path).returns('/var/log')
     ProcessManager.expects(:new).once.returns(process_manager)

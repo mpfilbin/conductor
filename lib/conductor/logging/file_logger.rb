@@ -6,7 +6,7 @@ module Conductor
 
       # @param [Conductor::Parsers::OptionsParser]options
       def initialize(options)
-        @path = options.logging_path + File::SEPARATOR + "#{options.stack_name}.log"
+        @path = options.logging_path + File::SEPARATOR + "#{options.stack}.log"
         @file = File.open(@path, File::APPEND)
         set_log_format
         super(@file)

@@ -12,7 +12,7 @@ module Conductor
 
       # @param [Conductor::CLI::OptionsParser] options
       def initialize(options = nil)
-        @stack_file_path = File.join(options.config_path, "#{options.stack_name}.yml")
+        @stack_file_path = File.join(options.config_path, "#{options.stack}.yml")
         read_file_contents
       end
 
